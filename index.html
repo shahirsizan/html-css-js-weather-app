@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="error">
-				<p>Invalid city name!</p>
+				<p></p>
 			</div>
 
 			<div class="weather">
@@ -59,9 +59,15 @@
 					apiURL + city + `&appid=${apiKey}`
 				);
 
-				if (response.status == 404) {
-					document.querySelector(".error").style.display = "block";
-					document.querySelector(".weather").style.display = "none";
+				document.querySelector(".error").style.display = "block";
+				document.querySelector(".weather").style.display = "none";
+
+				if (response.status == 400 && response.name == null) {
+					document.querySelector(".error").innerHTML =
+						"Please enter the city name";
+				} else if (response.status == 404) {
+					document.querySelector(".error").innerHTML =
+						"Invalid city name!";
 				} else {
 					document.querySelector(".error").style.display = "none";
 					document.querySelector(".weather").style.display = "block";
